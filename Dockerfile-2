@@ -1,16 +1,7 @@
-from alpine
-
-workdir /app
-
-copy index.js .
-
-
-run apk add --update nodejs
-run apk add --update npm
-run npm i express
-run npm i nodemon
-
-copy package.json .
-copy package-lock.json .
-
-cmd npm run start
+FROM node:14-alpine
+WORKDIR /app
+COPY index.js package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 4000
+CMD node index.js
